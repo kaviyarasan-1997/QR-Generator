@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+ <title>Qr Generator</title>
+ <meta charset='UTF-8' />
+ <meta content='width=device-width, user-scalable=no' name='viewport' />
+ <meta content='https://i.imgur.com/haXFH68.png' property='og:image' />
+ <link href='https://i.imgur.com/haXFH68.png' />
+ <link href='https://i.imgur.com/haXFH68.png' />
+ <link href='https://asbros.github.io/as.webmanifest' rel='manifest' />
+ <link href='https://asbros.github.io/css/main.css' rel='stylesheet' />
+ <style>
+  .centerqrf {
+    width: 300px;
+    padding: 20px;
+    background-color:rgba(0,0,0,0.1);
+    margin: 0 auto;
+    border-radius:5px;
+  }
+  .form .form-element {
+    margin-bottom:15px;
+  }
+  .form .form-element label {
+    font-size:14px;
+    color:#111;
+  }
+  .form .form-element input {
+    width:100%;
+    display:block;
+    padding:10px;
+    margin-top:5px;
+    box-sizing: border-box;
+  }
+  .form .form-element button {
+    width:100%;
+    height:40px;
+    background:#111;
+    color:#eee;
+    font-size:14px;
+    border-radius: 5px;
+  }
+  .qr-img {
+    margin-top:10px;
+  }
+  .qr-img img {
+    width:100%;
+  }
+ </style>
+</head>
+
+<body style="margin:0;padding:0;">
+ <div class='pad-10 shadow bg-black white relative' style='margin-bottom:15px;display: flex;align-items: center;'>
+  <span class='white josefin-font f-20' style='flex: 1;margin-left: 3px;margin-top: 2px;'>QR Code Generator</span>
+  <button class='s-40 active circle btn right' onclick='abt()' style='background:transparent;display: flex;align-items: center;'><svg fill='#fff' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'>
+    <path clip-rule='evenodd' d='M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z' fill-rule='evenodd'></path>
+   </svg></button>
+ </div>
+ <div class="centerqrf">
+  <div class="form">
+   <div class="form-element">
+    <label for="data_ip_qrg"></label>
+    <input type="text" id="data_ip_qrg" placeholder="Enter something...">
+   </div>
+   <div class="form-element">
+    <button id="getqrc">Generate QR Code</button>
+   </div>
+  </div>
+  <div class="qr-img">
+   <img src="" style="display: none" onload="qrimgloaded()" id="qrg_img" alt="QR">
+  </div>
+  <img alt="QR" style="display: none;" src="" />
+ </div>
+ <script>
+  let inputqrg = document.querySelector("#data_ip_qrg");
+  let buttonqrg = document.querySelector("#getqrc");
+  let qrImgqrg = document.querySelector("#qrg_img");
+  buttonqrg.addEventListener("click",function(){
+    let dataqrc = inputqrg.value;
+    if(dataqrc.length > 0){
+      let imgSrcqrg = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + dataqrc;
+      qrImgqrg.src = imgSrcqrg;
+      qrImgqrg.style.display = 'block';
+      document.getElementById("getqrc").innerHTML = 'Generating...';
+    } else{
+      alert("Please write something to generate QR");
+      }
+  })
+  function qrimgloaded(){
+    document.getElementById("getqrc").innerHTML = 'Generate Another';
+  }
+ </script>
+</body>
+
+</html>
